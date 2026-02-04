@@ -16,6 +16,8 @@ HELP.md
 *.iws
 *.ipr
 
+scripts/init-db.sql
+
 # Build
 **/build/
 **/target/
