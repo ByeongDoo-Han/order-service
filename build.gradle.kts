@@ -12,7 +12,7 @@ description = "sajeon"
 
 java {
     toolchain {
-        languageVersion = JavaLanguageVersion.of(17)
+        languageVersion.set(JavaLanguageVersion.of(17))
     }
 }
 
@@ -27,12 +27,23 @@ repositories {
 }
 
 dependencies {
+    //jpa
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+
+    //web
     implementation("org.springframework.boot:spring-boot-starter-web")
+
+    //db
+    runtimeOnly("com.mysql:mysql-connector-j")
+
+    //validation
+    implementation("org.springframework.boot:spring-boot-starter-validation")
+
+    //kotlin
     implementation("com.fasterxml.jackson.module:jackson-module-kotlin")
     implementation("org.jetbrains.kotlin:kotlin-reflect")
-    compileOnly("org.projectlombok:lombok")
-    annotationProcessor("org.projectlombok:lombok")
+
+    //test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit5")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
