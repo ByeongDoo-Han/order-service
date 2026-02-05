@@ -1,7 +1,5 @@
 package com.example.sajeon.domain
 
-import com.example.sajeon.dto.ProductRequest
-
 data class Product(
     val id: Long,
     var name: String,
@@ -15,7 +13,7 @@ data class Product(
         return stock > 0
     }
 
-    fun order(quantity: Int) {
+    fun order(quantity: Int) :Product{
         if (active != Active.ACTIVE) {
             throw IllegalStateException("Product is not active.")
         }
@@ -27,7 +25,9 @@ data class Product(
         }
         // Reduce stock
         val newStock = stock - quantity
-        // In a real application, you would update the stock in the database here
+        return this.copy(
+            stock = newStock
+        )
     }
 
     fun deactivate() :Product{

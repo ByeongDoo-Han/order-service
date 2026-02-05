@@ -1,7 +1,10 @@
 package com.example.sajeon.repository
 
 import com.example.sajeon.entity.ProductEntity
+import jakarta.persistence.LockModeType
 import org.springframework.data.jpa.repository.JpaRepository
+import org.springframework.data.jpa.repository.Lock
+import org.springframework.data.jpa.repository.Modifying
 import org.springframework.data.jpa.repository.Query
 import org.springframework.stereotype.Repository
 
@@ -17,4 +20,14 @@ interface ProductRepository : JpaRepository<ProductEntity, Long>{
         """
     )
     fun findNextPage(cursor: Long?, size: Int, keyword: String?): List<ProductEntity>
+
+    @Modifying
+    @Query(
+        """
+        UPDATE ProductEntity p
+        SET p.stock = p.stock - :quantity
+        WHERE p.id = :id
+        """
+    )
+    fun decreaseStock(id: Long, quantity: Int)
 }
